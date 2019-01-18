@@ -1,9 +1,63 @@
-﻿
+﻿@model IEnumerable<SalesWebMVC.Models.Seller>
+<!-- model = view(list)-->
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Sellers";
 }
 
-<h2>Sellers</h2>
+<h2>@ViewData["Title"]</h2>
 
-<p>Sellers index page</p>
+<!--Layout basico para mostrar a listagem de vendedores (com bootstrap)-->
+<table class="table table-striped table-hover">
+    <thead><!--Cabeçalho-->
+        <tr class="success"> <!--Mudar a cor da barra de título-->
+            <!--Linha cabeçalho-->
+            <th>
+                <!--Coluna-->
+                <!-- para renderizar o nome baseado no nome da classe, usa o recurso do framework .. DisplayNameFor() com expressão lambda -->
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseSalary)
+            </th>            
+            <th></th> <!--para ter mais um espaço de titulo para colocar link-->
+        </tr>
+    </thead>
+    <tbody>
+        <!--Corpo da tabela-->
+        @foreach (var item in Model)
+    { <!-- para cada variavel item na lista model(padrao), vou criar uma linha contendo varias colunas e para criar o conteudo de cada coluna baseado no objeto item, usa-se outro recurso do framework.. -->
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BaseSalary)
+            </td>
+            <td>
+                <!--link editar, excluir, detalhes, (a ação 'edit' sera implementada no controlador de vendedores... (os asp são tag helpers que vai 'edit' de cada 'id' dos vendedores)  -->
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+
+
+    </tbody>
+
+
+</table>
 
