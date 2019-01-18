@@ -1,0 +1,42 @@
+﻿@model SalesWebMVC.Models.Seller 
+<!--estou declarando que essa view terá a disposição dela o objeto Seller, assim pegando o atributo 'NAME'-->
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Seller</h4>
+<hr /> <!--Passar uma linha-->
+<div class="row"> <!--Class row do bootstrap que garante que a div ocupa a largura da tela-->
+    <div class="col-md-4"> <!--Para o formulário ocupar 1 terço da tela (divide a tela em 12 partes, entao 4 = 1/3, 6 = 1/2-->
+        <form asp-action="Create">
+            <!--helper para definir que assim que enviado o formulario, eu vou chamar a ação "Create" mas não é a ação que foi criada. Ela é a ação create do metódo Post(que será criada no controlador)-->
+            <div class="form-group">
+                <!--bootstrap-->
+                <!--tag helper 'asp-for' é para definir o label que irá aparecer na caixinha que ira digitar -->
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class=form-control />
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class=form-control />
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" class=form-control />
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseSalary" class="control-label"></label>
+                <input asp-for="BaseSalary" class=form-control />
+            </div>
+            <!--Botão cadastrar-->
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>        
+    </div>
+
+</div>
+
