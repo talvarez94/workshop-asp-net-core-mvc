@@ -1,5 +1,8 @@
-﻿@model SalesWebMVC.Models.Seller 
+﻿<!--model SalesWebMVC.Models.Seller-->
 <!--estou declarando que essa view terá a disposição dela o objeto Seller, assim pegando o atributo 'NAME'-->
+
+@model SalesWebMVC.Models.ViewModels.SellerFormViewModel
+<!--Atualizado (Name agr recebe, Seller.Name-->
 
 @{
     ViewData["Title"] = "Create";
@@ -16,20 +19,27 @@
             <div class="form-group">
                 <!--bootstrap-->
                 <!--tag helper 'asp-for' é para definir o label que irá aparecer na caixinha que ira digitar -->
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class=form-control />
+                <label asp-for="Seller.Name" class="control-label"></label>
+                <input asp-for="Seller.Name" class=form-control />
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class=form-control />
+                <label asp-for="Seller.Email" class="control-label"></label>
+                <input asp-for="Seller.Email" class=form-control />
             </div>
             <div class="form-group">
-                <label asp-for="BirthDate" class="control-label"></label>
-                <input asp-for="BirthDate" class=form-control />
+                <label asp-for="Seller.BirthDate" class="control-label"></label>
+                <input asp-for="Seller.BirthDate" class=form-control />
             </div>
             <div class="form-group">
-                <label asp-for="BaseSalary" class="control-label"></label>
-                <input asp-for="BaseSalary" class=form-control />
+                <label asp-for="Seller.BaseSalary" class="control-label"></label>
+                <input asp-for="Seller.BaseSalary" class=form-control />
+            </div>
+            <!--Caixa de seleção-->
+            <div class="form-group">
+                <label asp-for="Seller.DepartmentId" class="control-label"></label>
+                <!--tag helper 'asp-items', constrói os items na caixa da seleção com base uma coleção passada. (Model.Departaments é a fonte de dados. O segundo argumento fala assim, qual é o atributo desse objeto que vai ser a chave? "id". O terceiro argumento é: qual atributo vai aparecer na caixinha? "Name".-->
+                <select asp-for="Seller.DepartmentId" asp-items="@(new SelectList(Model.Departments, "Id","Name"))" class="form-control"></select>
+                <!--Não é necessario att o POST do SellerController pois o framework sabe atraves do atributo DepartmentId e instancia com o codigo de Department dele(ou seja, nome iguais, automaticamente) -->
             </div>
             <!--Botão cadastrar-->
             <div class="form-group">

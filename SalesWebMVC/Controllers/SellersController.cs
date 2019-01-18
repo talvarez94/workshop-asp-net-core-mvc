@@ -5,16 +5,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SalesWebMVC.Models;
 using SalesWebMVC.Services;
+using SalesWebMVC.Models.ViewModels;
 
 namespace SalesWebMVC.Controllers
 {
     public class SellersController : Controller
     {
         private readonly SellerService _sellerService;
+        private readonly DepartmentService _departmentService;
 
-        public SellersController(SellerService sellerService)
+        public SellersController(SellerService sellerService, DepartmentService departmentService)
         {
             _sellerService = sellerService;
+            _departmentService = departmentService;
         }
 
         public IActionResult Index() //tera q chamar o FindAll() do SellerService.. cria-se uma dependencia.
@@ -23,9 +26,14 @@ namespace SalesWebMVC.Controllers
             return View(list); //ira gerar um IActionResult contendo a lista (MVC acontecendo.. chamei o controlador 'index', controlador acessou o model sellerservice e encaminha os dados para a View()) ... Depois implementar na pagina index, um codigo de template para mostrar os vendedores (Views/Sellers/Index) 
         }
 
-        public IActionResult Create()
+        public IActionResult Create() 
         {
-            return View();
+            // ---- att -----
+            var departments = _departmentService.FindAll(); //carrega departamentos e buscar no banco de dados todos departamentos
+            var viewModel = new SellerFormViewModel { Departments = departments }; //instanciar obj do viewmodel
+            // --------------
+
+            return View(viewModel);
         }
 
         [HttpPost] //indica que essa ação é de Post, e não de GET
