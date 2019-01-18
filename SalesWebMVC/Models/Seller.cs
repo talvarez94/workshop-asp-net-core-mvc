@@ -12,6 +12,7 @@ namespace SalesWebMVC.Models
         public DateTime BirthDate { get; set; }
         public double BaseSalary { get; set; }
         public Department Deparment { get; set; }
+        public int DepartmentId { get; set; } //avisa o entity framework para garantir que esse id tem q existir e nao pode ser nulo
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 
         public Seller() { }

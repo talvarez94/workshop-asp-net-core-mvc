@@ -24,6 +24,7 @@ namespace SalesWebMVC.Services
         //método para inserir um novo vendedor no banco de dados
         public void Insert(Seller obj)
         {
+            obj.Deparment = _context.Department.First(); //Solução foreignkey provisória(pega o primeiro departamento e associa com o vendedor)
             _context.Add(obj); //EntityFramework é bem simples. 
             _context.SaveChanges();//Confirma operação no banco de dados, depois criar a ação create com metódo POST no controlador.
         }
