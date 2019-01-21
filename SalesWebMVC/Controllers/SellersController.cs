@@ -48,6 +48,31 @@ namespace SalesWebMVC.Controllers
             // return RedirectToAction("Index"); ou
             return RedirectToAction(nameof(Index)); // essa opção melhora a manutenção do sistema, pois se eu mudar o nome do string Index, não sera necessario mudar aqui
         }
+
+        //abrir tela de confirmação de delete
+        public IActionResult Delete(int? id) //interrogação é opcional
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerService.FindById(id.Value); //value pois é um Nullable
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _sellerService.Remove(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
 
