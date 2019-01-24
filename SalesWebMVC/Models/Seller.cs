@@ -8,11 +8,18 @@ namespace SalesWebMVC.Models
     public class Seller
     {
         public int Id { get; set; }
+
+        //validaçao
+        [Required(ErrorMessage = "{0} required")]//campo obrigatorio (opcional mensagem personalizada)
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "{0} size should be between {2} and {1}")]//tamanho minimo e maximo com mensagem de erro personalizada -- {0} Pega o nome do atributo, [1] pega o maxino {2} minimo 
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "{0} required")]
+        [EmailAddress(ErrorMessage = "Enter a valid email")]
         [DataType(DataType.EmailAddress)] // acrescenta link toEmail
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "{0} required")]
         //muda o nome na pagina
         [Display(Name = "Birth Date")]
         // datatype altera o formato da data desejado
@@ -20,6 +27,8 @@ namespace SalesWebMVC.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
+        [Required(ErrorMessage = "{0} required")]
+        [Range(100.0, 50000.0, ErrorMessage = "{0} must be from {1} to {2}")]
         [Display(Name = "Base Salary")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double BaseSalary { get; set; }
